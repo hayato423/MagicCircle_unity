@@ -12,8 +12,9 @@ namespace Socket
         private int remotePort;  //送信先のポート
 
         private UdpClient udpForReceive;    //受信用クライアント
-        public string rcvMsg = "ini";   //受信メッセージ格納
+        public string rcvMsg = "";   //受信メッセージ格納
         private System.Threading.Thread rcvThread;  //受信用スレッド
+        
 
         public UDP()
         {
@@ -26,7 +27,7 @@ namespace Socket
             {
                 udpForSend = new UdpClient(port_snd);  //送信用ポート
                 remotePort = port_to;
-                udpForReceive = new UdpClient(port_rcv);  //受信用ポート
+                udpForReceive = new UdpClient(port_rcv);  //受信用ポート                
                 rcvThread = new System.Threading.Thread(new System.Threading.ThreadStart(receive));
                 return true;
             }
@@ -43,7 +44,7 @@ namespace Socket
                 byte[] sendBytes = Encoding.ASCII.GetBytes(sendMsg);
                 udpForSend.Send(sendBytes, sendBytes.Length, remoteHost, remotePort);
             }
-            catch { }
+            catch{ }
         }
 
         public void receive()  //受信スレッドで実行される関数
@@ -53,8 +54,8 @@ namespace Socket
             {
                 try
                 {
-                    byte[] rcvBytes = udpForReceive.Receive(ref remoteEP);
-                    Interlocked.Exchange(ref rcvMsg, Encoding.ASCII.GetString(rcvBytes));
+                    byte[] rcvBytes = udpForReceive.Receive(ref remoteEP);                    
+                    Interlocked.Exchange(ref rcvMsg, Encoding.UTF8.GetString(rcvBytes));
                 }
                 catch { }
             }
