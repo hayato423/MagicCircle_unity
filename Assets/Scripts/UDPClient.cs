@@ -71,8 +71,8 @@ public class UDPClient : MonoBehaviour
 
                 string[] valArr = connected.Split(',');                
                 int[] parameter = new int[3] { int.Parse(valArr[0]), int.Parse(valArr[1]), int.Parse(valArr[2]) };
-                string base64 = valArr[3];                
-                mc.ChangeTexture(data: base64);                              
+                string base64 = valArr[3];
+                mc.Activate(parameter, base64);                
             }
         }        
     }
