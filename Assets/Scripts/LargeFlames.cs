@@ -46,13 +46,21 @@ public class LargeFlames : MonoBehaviour, IMagic
 
     public void PlayAnimation(float[] parameter)
     {
-        Color color = new Color(parameter[0],parameter[1],parameter[2]);
-        Color emColor = new Color(System.Math.Max(parameter[0]+0.2f,1.0f), System.Math.Max(parameter[1] + 0.2f, 1.0f), System.Math.Max(parameter[2] + 0.2f, 1.0f));
+        float H, albedoS, albedoV,emisionS,emisionV;
+        H = parameter[0] + parameter[1] + parameter[2];
+        while (H > 1.0f)
+            H -= 1.0f;
+        albedoS = 0.69f;
+        albedoV = 0.99f;
+        Color color = Color.HSVToRGB(H, albedoS, albedoV);        
+        emisionS = 0.60f;
+        emisionV = 0.99f;
+        Color emColor = Color.HSVToRGB(H+0.1f, emisionS, emisionV);        
         FlameParticleObj.GetComponent<Renderer>().sharedMaterial.color = color;
-        FlameParticleObj.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor", emColor);
+        FlameParticleObj.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor",new Color(2.0f*emColor.r,2.0f*emColor.g,2.0f*emColor.b));
         GameObject embers = FlameParticleObj.transform.Find("FireEmbers").gameObject;
         ParticleSystem.MainModule embers_par = embers.GetComponent<ParticleSystem>().main;
-        embers_par.startColor = color;        
+        embers_par.startColor = emColor;
         IsActivating = true;
     }
 }

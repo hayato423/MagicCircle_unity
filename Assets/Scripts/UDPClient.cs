@@ -70,7 +70,8 @@ public class UDPClient : MonoBehaviour
                 count = 0;
 
                 string[] valArr = connected.Split(',');                
-                int[] parameter = new int[3] { int.Parse(valArr[0]), int.Parse(valArr[1]), int.Parse(valArr[2]) };
+                int[] parameter = new int[3] { (int)int.Parse(valArr[0])/15, int.Parse(valArr[1]), int.Parse(valArr[2])*20 };
+                Debug.Log(parameter[0] + "," + parameter[1] + "," + parameter[2]);
                 string base64 = valArr[3];
                 mc.Activate(parameter, base64);                
             }

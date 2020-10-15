@@ -13,6 +13,7 @@ public class MagicCircle : MonoBehaviour
     private float addNum = 1.0f;
     public GameObject LargeFlameMagic;
     public GameObject EnergyExplosion;
+    public GameObject IceSpear;
     private float[] NormalizedParameter;
     private bool end;
     // Start is called before the first frame update
@@ -23,8 +24,6 @@ public class MagicCircle : MonoBehaviour
         scale = 0.0f;
         end = false;
         transform.localScale = new Vector3(0, 1, 0);
-        LargeFlameMagic = GameObject.Find("LargeFlameMagic");
-        EnergyExplosion = GameObject.Find("EnergyExplosionMagic");
         NormalizedParameter = new float[3];
     }
 
@@ -40,8 +39,30 @@ public class MagicCircle : MonoBehaviour
             if(angle > rotateAngle)
             {
                 moving = false;
-                //LargeFlameMagic.GetComponent<LargeFlames>().PlayAnimation(NormalizedParameter);
-                EnergyExplosion.GetComponent<EnergyExplosion>().PlayAnimation(NormalizedParameter);
+                int index = 0;
+                float max = NormalizedParameter.Max();
+                for(int i = 0; i < 3; i++)
+                {
+                    if (NormalizedParameter[i] == max)
+                    {
+                        index = i;
+                        break;
+                    }
+                }                
+                switch (index)
+                {
+                    case 0:
+                        IceSpear.GetComponent<IceSpear>().PlayAnimation(NormalizedParameter);
+                        break;
+                    case 1:
+                        LargeFlameMagic.GetComponent<LargeFlames>().PlayAnimation(NormalizedParameter);
+                        break;
+                    case 2:
+                        EnergyExplosion.GetComponent<EnergyExplosion>().PlayAnimation(NormalizedParameter);
+                        break;
+                    default:
+                        break;
+                }                                                
             }
         }
         if (end)

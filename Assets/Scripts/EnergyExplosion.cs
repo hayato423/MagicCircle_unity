@@ -38,14 +38,26 @@ public class EnergyExplosion : MonoBehaviour,IMagic
     }
 
     public void PlayAnimation(float[] parameter) {
-        Color color = new Color(parameter[0], parameter[1], parameter[2]);
+        float H, albedoS, albedoV, emisionS, emisionV;
+        H = parameter[0] + parameter[1] + parameter[2];
+        while (H > 1.0f)
+            H -= 1.0f;
+        albedoS = 0.58f;
+        albedoV = 0.99f;
+        Color color = Color.HSVToRGB(H, albedoS, albedoV);        
+        emisionS = 0.60f;
+        emisionV = 0.75f;
+        Color emColor = Color.HSVToRGB(H + 0.1f, emisionS, emisionV);        
+
         ParticleSystem.MainModule mainModule = EnergyExplosionObj.GetComponent<ParticleSystem>().main;
+        mainModule.startColor = color;
         GameObject embers = EnergyExplosionObj.transform.Find("Embers").gameObject;
         ParticleSystem.MainModule embers_par = embers.GetComponent<ParticleSystem>().main;
-        embers_par.startColor = color;
-        mainModule.startColor = color;
+        embers_par.startColor = emColor;
         GameObject lightning = EnergyExplosionObj.transform.Find("Lightning").gameObject;
-        lightning.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor", color);
+        float factor = Mathf.Pow(2, 2f);
+        lightning.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor", emColor);
+
         count = 0;
         mcount = 0;
         isActivating = true;        
