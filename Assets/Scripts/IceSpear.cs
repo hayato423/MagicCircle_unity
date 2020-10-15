@@ -14,7 +14,7 @@ public class IceSpear : MonoBehaviour, IMagic
     void Start()
     {
         IsActivating = false;
-        radius = 5.0f;
+        radius = 10.0f;
         degree = 0.0f;
         height = 0.0f;
         this.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
@@ -34,13 +34,13 @@ public class IceSpear : MonoBehaviour, IMagic
             {
                 Instantiate(IceSpearObj, this.transform.position, Quaternion.identity);
             }
-            height += 0.02f;
+            height += 0.04f;
             degree += 10.0f;
-            radius -= 0.02f;
-            if (height > 5.0f)
+            radius -= 0.05f;
+            if (height > 8.0f)
             {
                 IsActivating = false;
-                radius = 5.0f;
+                radius = 10.0f;
                 degree = 0.0f;
                 height = 0.0f;
                 this.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
