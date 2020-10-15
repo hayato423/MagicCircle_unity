@@ -8,7 +8,7 @@ public class LargeFlames : MonoBehaviour, IMagic
     private GameObject MagicCircle;
     private bool IsActivating;
     private float radius;
-    private float degree;    
+    private float degree;
     // Start is called before the first frame update
     void Start()
     {        
@@ -47,8 +47,12 @@ public class LargeFlames : MonoBehaviour, IMagic
     public void PlayAnimation(float[] parameter)
     {
         Color color = new Color(parameter[0],parameter[1],parameter[2]);
+        Color emColor = new Color(System.Math.Max(parameter[0]+0.2f,1.0f), System.Math.Max(parameter[1] + 0.2f, 1.0f), System.Math.Max(parameter[2] + 0.2f, 1.0f));
         FlameParticleObj.GetComponent<Renderer>().sharedMaterial.color = color;
-        FlameParticleObj.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor", color);
-        IsActivating = true;        
+        FlameParticleObj.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor", emColor);
+        GameObject embers = FlameParticleObj.transform.Find("FireEmbers").gameObject;
+        ParticleSystem.MainModule embers_par = embers.GetComponent<ParticleSystem>().main;
+        embers_par.startColor = color;        
+        IsActivating = true;
     }
 }

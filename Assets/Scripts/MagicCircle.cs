@@ -12,6 +12,7 @@ public class MagicCircle : MonoBehaviour
     private float rotateAngle = 360.0f;
     private float addNum = 1.0f;
     public GameObject LargeFlameMagic;
+    public GameObject EnergyExplosion;
     private float[] NormalizedParameter;
     private bool end;
     // Start is called before the first frame update
@@ -23,6 +24,7 @@ public class MagicCircle : MonoBehaviour
         end = false;
         transform.localScale = new Vector3(0, 1, 0);
         LargeFlameMagic = GameObject.Find("LargeFlameMagic");
+        EnergyExplosion = GameObject.Find("EnergyExplosionMagic");
         NormalizedParameter = new float[3];
     }
 
@@ -37,8 +39,9 @@ public class MagicCircle : MonoBehaviour
             angle += addNum;
             if(angle > rotateAngle)
             {
-                moving = false;                
-                LargeFlameMagic.GetComponent<LargeFlames>().PlayAnimation(NormalizedParameter);
+                moving = false;
+                //LargeFlameMagic.GetComponent<LargeFlames>().PlayAnimation(NormalizedParameter);
+                EnergyExplosion.GetComponent<EnergyExplosion>().PlayAnimation(NormalizedParameter);
             }
         }
         if (end)
