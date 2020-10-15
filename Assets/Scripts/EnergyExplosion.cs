@@ -44,6 +44,8 @@ public class EnergyExplosion : MonoBehaviour,IMagic
         ParticleSystem.MainModule embers_par = embers.GetComponent<ParticleSystem>().main;
         embers_par.startColor = color;
         mainModule.startColor = color;
+        GameObject lightning = EnergyExplosionObj.transform.Find("Lightning").gameObject;
+        lightning.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor", color);
         count = 0;
         mcount = 0;
         isActivating = true;        
