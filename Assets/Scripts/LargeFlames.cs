@@ -40,6 +40,7 @@ public class LargeFlames : MonoBehaviour, IMagic
                     audioSource.PlayOneShot(sound);
                     isAudioPlaying = true;
                 }
+                audioSource.volume -= 0.001f;
             }
             radius += 0.02f;
             degree += 2.0f;

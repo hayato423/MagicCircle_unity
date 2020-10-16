@@ -10,6 +10,9 @@ public class IceSpear : MonoBehaviour, IMagic
     private float radius;
     private float degree;
     private float height;
+    private AudioSource audioSource;
+    public AudioClip sound;
+    //private bool isAudioPlaying;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +22,8 @@ public class IceSpear : MonoBehaviour, IMagic
         height = 0.0f;
         this.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
         MagicCircle = GameObject.Find("MagicCircle");
+        audioSource = GetComponent<AudioSource>();
+        //isAudioPlaying = false;
         
     }
 
@@ -32,7 +37,12 @@ public class IceSpear : MonoBehaviour, IMagic
             this.transform.position = newPos;
             if (degree % 10 == 0)
             {
-                Instantiate(IceSpearObj, this.transform.position, Quaternion.identity);
+                Instantiate(IceSpearObj, this.transform.position, Quaternion.identity);                
+                if(degree % 150 == 0)
+                {
+                    audioSource.PlayOneShot(sound);
+                    //isAudioPlaying = true;
+                }
             }
             height += 0.04f;
             degree += 10.0f;
@@ -40,6 +50,7 @@ public class IceSpear : MonoBehaviour, IMagic
             if (height > 8.0f)
             {
                 IsActivating = false;
+                //isAudioPlaying = false;
                 radius = 10.0f;
                 degree = 0.0f;
                 height = 0.0f;
