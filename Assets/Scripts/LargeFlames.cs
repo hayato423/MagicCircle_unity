@@ -35,7 +35,7 @@ public class LargeFlames : MonoBehaviour, IMagic
             if (degree % 10 == 0)
             {
                 Instantiate(FlameParticleObj, this.transform.position, Quaternion.identity);
-                if(isAudioPlaying == false && radius > 1.3)
+                if(isAudioPlaying == false && radius > 1.3f)
                 {
                     audioSource.PlayOneShot(sound);
                     isAudioPlaying = true;

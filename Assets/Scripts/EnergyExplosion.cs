@@ -9,12 +9,15 @@ public class EnergyExplosion : MonoBehaviour,IMagic
     private bool isActivating = false;
     private float count;
     private float mcount;
+    private AudioSource audioSource;
+    public AudioClip sound;    
     // Start is called before the first frame update
     void Start()
     {
         MagicCircle = GameObject.Find("MagicCircle");
+        audioSource = GetComponent<AudioSource>();
         count = 0;
-        mcount = 0;
+        mcount = 0;        
     }
 
     // Update is called once per frame
@@ -25,6 +28,7 @@ public class EnergyExplosion : MonoBehaviour,IMagic
             if (count > mcount)
             {
                 Instantiate(EnergyExplosionObj, this.transform.position, Quaternion.identity);
+                audioSource.PlayOneShot(sound);
                 mcount += 0.5f ;
             }
             if (count > 4)
