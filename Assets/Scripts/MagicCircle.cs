@@ -10,7 +10,7 @@ public class MagicCircle : MonoBehaviour
     private float angle;
     private float scale;
     private float rotateAngle = 360.0f;
-    private float addNum = 1.0f;
+    private float addNum = 2.0f;
     public GameObject LargeFlameMagic;
     public GameObject EnergyExplosion;
     public GameObject IceSpear;

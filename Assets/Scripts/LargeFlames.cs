@@ -9,6 +9,9 @@ public class LargeFlames : MonoBehaviour, IMagic
     private bool IsActivating;
     private float radius;
     private float degree;
+    private AudioSource audioSource;    
+    public AudioClip sound;
+    private bool isAudioPlaying;
     // Start is called before the first frame update
     void Start()
     {        
@@ -17,6 +20,9 @@ public class LargeFlames : MonoBehaviour, IMagic
         degree = 0.0f;
         this.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
         MagicCircle = GameObject.Find("MagicCircle");
+        audioSource = this.GetComponent<AudioSource>();
+        isAudioPlaying = false;
+        audioSource.volume = 1.0f;
     }
 
     // Update is called once per frame
@@ -30,6 +36,13 @@ public class LargeFlames : MonoBehaviour, IMagic
             if (degree % 10 == 0)
             {
                 Instantiate(FlameParticleObj, this.transform.position, Quaternion.identity);
+                if(isAudioPlaying == false && radius > 1.3f)
+                {
+                    audioSource.PlayOneShot(sound);
+                    isAudioPlaying = true;
+                }
+                audioSource.volume -= 0.001f;
+                    
             }
             radius += 0.02f;
             degree += 2.0f;
@@ -38,8 +51,9 @@ public class LargeFlames : MonoBehaviour, IMagic
                 IsActivating = false;
                 radius = 0.0f;
                 degree = 0.0f;
+                isAudioPlaying = false;
                 this.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
-                MagicCircle.GetComponent<MagicCircle>().Invisible();
+                MagicCircle.GetComponent<MagicCircle>().Invisible();                
             }
         }
     }
@@ -62,5 +76,6 @@ public class LargeFlames : MonoBehaviour, IMagic
         ParticleSystem.MainModule embers_par = embers.GetComponent<ParticleSystem>().main;
         embers_par.startColor = emColor;
         IsActivating = true;
+        audioSource.volume = 1.0f;
     }
 }
