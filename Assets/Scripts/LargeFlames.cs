@@ -22,6 +22,7 @@ public class LargeFlames : MonoBehaviour, IMagic
         MagicCircle = GameObject.Find("MagicCircle");
         audioSource = this.GetComponent<AudioSource>();
         isAudioPlaying = false;
+        audioSource.volume = 1.0f;
     }
 
     // Update is called once per frame
@@ -41,6 +42,7 @@ public class LargeFlames : MonoBehaviour, IMagic
                     isAudioPlaying = true;
                 }
                 audioSource.volume -= 0.001f;
+                    
             }
             radius += 0.02f;
             degree += 2.0f;
@@ -51,7 +53,7 @@ public class LargeFlames : MonoBehaviour, IMagic
                 degree = 0.0f;
                 isAudioPlaying = false;
                 this.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
-                MagicCircle.GetComponent<MagicCircle>().Invisible();           
+                MagicCircle.GetComponent<MagicCircle>().Invisible();                
             }
         }
     }
@@ -74,5 +76,6 @@ public class LargeFlames : MonoBehaviour, IMagic
         ParticleSystem.MainModule embers_par = embers.GetComponent<ParticleSystem>().main;
         embers_par.startColor = emColor;
         IsActivating = true;
+        audioSource.volume = 1.0f;
     }
 }
